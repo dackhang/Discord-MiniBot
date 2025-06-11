@@ -1,4 +1,4 @@
-const { Client, GatewayIntentBits, Collection } = require('discord.js');
+const { Client, GatewayIntentBits, Collection, ActivityType } = require('discord.js');
 const fs = require('fs');
 const path = require('path');
 require('dotenv').config();
@@ -24,7 +24,6 @@ for (const file of commandFiles) {
 
 // Login
 client.once('ready', () => {
-  // Đặt trạng thái và hoạt động
   client.user.setPresence({
     activities: [{
       name: 'CÙNG DHTI15A1CL CHẠY DEADLINE [/]',
@@ -37,7 +36,6 @@ client.once('ready', () => {
 });
 
 client.on('interactionCreate', async interaction => {
-  // Slash command
   if (interaction.isChatInputCommand()) {
     const command = client.commands.get(interaction.commandName);
     if (!command) return;
@@ -47,11 +45,7 @@ client.on('interactionCreate', async interaction => {
       console.error(error);
       await interaction.reply({ content: '❌ Đã xảy ra lỗi khi thực thi lệnh.', ephemeral: true });
     }
-  }
-
-  // Button interaction
-  else if (interaction.isButton()) {
-    // Blackjack button handler
+  } else if (interaction.isButton()) {
     if (interaction.customId.startsWith('hit') || interaction.customId.startsWith('stand')) {
       try {
         const blackjackHandler = require('./commands/blackjack').handler;
@@ -60,10 +54,7 @@ client.on('interactionCreate', async interaction => {
         console.error(error);
         await interaction.reply({ content: '❌ Lỗi khi xử lý Blackjack!', ephemeral: true });
       }
-    }
-
-    // Rock Paper Scissors button handler
-    else if (interaction.customId.startsWith('rps_')) {
+    } else if (interaction.customId.startsWith('rps_')) {
       try {
         const rpsHandler = require('./handlers/rpsHandler');
         await rpsHandler(interaction);
