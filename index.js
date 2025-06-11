@@ -24,6 +24,15 @@ for (const file of commandFiles) {
 
 // Login
 client.once('ready', () => {
+  // Đặt trạng thái và hoạt động
+  client.user.setPresence({
+    activities: [{
+      name: 'CÙNG DHTI15A1CL CHẠY DEADLINE [/]',
+      type: ActivityType.Playing
+    }],
+    status: 'online'
+  });
+
   console.log(`✅ Logged in as ${client.user.tag}`);
 });
 
