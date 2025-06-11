@@ -1,14 +1,14 @@
 {
-  "name": "discord-bot",                      // Tên project
-  "version": "1.0.0",                         // Phiên bản
-  "description": "Discord bot chạy bằng Node.js",  // Mô tả
-  "main": "index.js",                         // File chính khi chạy
+  "name": "discord-bot",                      
+  "version": "1.0.0",                         
+  "description": "Discord bot chạy bằng Node.js",
+  "main": "index.js",                         
   "scripts": {
-    "start": "node index.js"                  // Câu lệnh để chạy bot
+    "start": "node index.js"              
   },
   "dependencies": {
-    "discord.js": "^14.11.0",                 // Thư viện chính cho bot
-    "dotenv": "^16.3.1",                      // Để đọc biến môi trường từ .env
-    "express": "^4.18.4"                      // Tạo web server nhỏ (giữ bot "awake")
+    "discord.js": "^14.11.0",         
+    "dotenv": "^16.3.1",               
+    "express": "^4.18.4"               
   }
 }
