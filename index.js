@@ -1,13 +1,14 @@
-const { Client, GatewayIntentBits, Collection, ActivityType } = require('discord.js');
+const { Client, GatewayIntentBits, Collection, ActivityType, REST, Routes } = require('discord.js');
 const fs = require('fs');
 const path = require('path');
 require('dotenv').config();
 
+// Tạo bot client
 const client = new Client({
   intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages]
 });
 
-// Load commands
+// Load commands từ thư mục /commands
 client.commands = new Collection();
 const commandsPath = path.join(__dirname, 'commands');
 const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
@@ -22,8 +23,24 @@ for (const file of commandFiles) {
   }
 }
 
-// Login
-client.once('ready', () => {
+// Đăng nhập
+client.once('ready', async () => {
+  // Đăng ký Slash Commands
+  const rest = new REST({ version: '10' }).setToken(process.env.TOKEN);
+  const commands = client.commands.map(cmd => cmd.data.toJSON());
+
+  try {
+    console.log('🔄 Đang đăng ký Slash Commands...');
+    await rest.put(
+      Routes.applicationCommands(client.user.id),
+      { body: commands }
+    );
+    console.log('✅ Slash Commands đã được đăng ký!');
+  } catch (error) {
+    console.error('❌ Lỗi khi đăng ký Slash Commands:', error);
+  }
+
+  // Trạng thái bot
   client.user.setPresence({
     activities: [{
       name: 'CÙNG DHTI15A1CL CHẠY DEADLINE [/]',
@@ -35,6 +52,7 @@ client.once('ready', () => {
   console.log(`✅ Logged in as ${client.user.tag}`);
 });
 
+// Xử lý tương tác
 client.on('interactionCreate', async interaction => {
   if (interaction.isChatInputCommand()) {
     const command = client.commands.get(interaction.commandName);
@@ -66,10 +84,10 @@ client.on('interactionCreate', async interaction => {
   }
 });
 
-// Start bot
+// Khởi động bot
 client.login(process.env.TOKEN);
 
-// keep the bot alive on Render using Express
+// Web server để giữ bot sống trên Render
 const express = require('express');
 const app = express();
 
