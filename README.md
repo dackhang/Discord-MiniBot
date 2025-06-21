@@ -1,4 +1,4 @@
-# 🎮 Discord MiniGame Bot – JavaScript (Node.js)
+# 🎮 Discord MiniGame Ness Bot – JavaScript (Node.js)
 
 [![build](https://img.shields.io/badge/build-passing-brightgreen)]()
 [![status](https://img.shields.io/badge/status-online-blue)]()
