@@ -4,7 +4,7 @@
 [![status](https://img.shields.io/badge/status-online-blue)]()
 [![deploy](https://img.shields.io/badge/hosted%20on-Render-orange)](https://render.com)
 
-**Discord Game Bot** là một bot Discord đơn giản được viết bằng **JavaScript (Node.js)** sử dụng thư viện `discord.js`. Bot hỗ trợ các slash command cơ bản và một số trò chơi mini giải trí. Toàn bộ source được quản lý qua GitHub và được deploy online miễn phí.
+**Discord-MiniGame-Ness-Bot** là một bot Discord đơn giản được viết bằng **JavaScript (Node.js)** sử dụng thư viện `discord.js`. Bot hỗ trợ các slash command cơ bản và một số trò chơi nhỏ. 
 
 ---
 
