@@ -1,4 +1,4 @@
-# 🎮 Discord Game Bot – JavaScript (Node.js)
+# 🎮 Discord MiniGame Bot – JavaScript (Node.js)
 
 [![build](https://img.shields.io/badge/build-passing-brightgreen)]()
 [![status](https://img.shields.io/badge/status-online-blue)]()
@@ -10,7 +10,7 @@
 
 ## 🎯 Tính năng
 
-- 🪨 `/rps` – Trò chơi kéo búa bao
+- ✂️ `/rps` – Trò chơi kéo búa bao
 - 🎰 `/slots` – Quay số biểu tượng trái cây
 - 🃏 `/blackjack` – Game bài đơn giản giữa người chơi và bot
 - 📶 `/ping` – Kiểm tra độ trễ của bot
