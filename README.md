@@ -26,8 +26,3 @@
 - **fs**, **path** – Tự động load command
 - **Render** – Triển khai bot online
 - **Cronjob + Express** – Giữ bot hoạt động 24/7 (qua `keep_alive.js`)
-
----
-
-## 📁 Cấu trúc thư mục
-
