@@ -1,30 +1,33 @@
-# 🎮 Discord Game Bot (JavaScript)
+# 🎮 Discord Game Bot – JavaScript (Node.js)
 
-[![build](https://img.shields.io/badge/build-passing-brightgreen)](https://github.com/dackhang/bot-discord-js-ness)
-[![status](https://img.shields.io/badge/status-active-blue)]()
-[![deploy](https://img.shields.io/badge/hosted%20on-Render.com-orange)](https://render.com)
+[![build](https://img.shields.io/badge/build-passing-brightgreen)]()
+[![status](https://img.shields.io/badge/status-online-blue)]()
+[![deploy](https://img.shields.io/badge/hosted%20on-Render-orange)](https://render.com)
 [![license](https://img.shields.io/badge/license-MIT-lightgrey)](LICENSE)
 
-**Discord Game Bot** là một bot đơn giản viết bằng **JavaScript (Node.js)** sử dụng thư viện [discord.js](https://discord.js.org/). Bot hỗ trợ các lệnh slash tương tác và một số trò chơi nhỏ nhằm mục đích thực hành và giải trí.
+**Discord Game Bot** là một bot Discord đơn giản được viết bằng **JavaScript (Node.js)** sử dụng thư viện `discord.js`. Bot hỗ trợ các slash command cơ bản và một số trò chơi mini giải trí. Toàn bộ source được quản lý qua GitHub và được deploy online miễn phí.
 
 ---
 
-## 🎯 Tính năng chính
+## 🎯 Tính năng
 
-- 🪨 **Rock-Paper-Scissors** (`/rps`) – Trò chơi kéo búa bao
-- 🎰 **Slots** (`/slots`) – Quay số ngẫu nhiên theo biểu tượng trái cây
-- 🃏 **Blackjack** (`/blackjack`) – Trò chơi bài đơn giản
-- 📤 **Send** (`/send`) – Gửi tin nhắn embed
-- 📶 **Ping** (`/ping`) – Kiểm tra độ trễ bot
+- 🪨 `/rps` – Trò chơi kéo búa bao
+- 🎰 `/slots` – Quay số biểu tượng trái cây
+- 🃏 `/blackjack` – Game bài đơn giản giữa người chơi và bot
+- 📶 `/ping` – Kiểm tra độ trễ của bot
+- 📤 `/send` – Gửi tin nhắn dạng phàn hồi vào chat
 
 ---
 
 ## 🛠 Công nghệ sử dụng
 
-- **Node.js**
-- **Discord.js v14**
-- **dotenv** – Quản lý biến môi trường
-- **fs, path** – Tải tự động lệnh từ thư mục
-- **Render.com** – Deploy miễn phí
+- **Node.js** + **Discord.js v14**
+- **dotenv** – Biến môi trường
+- **fs**, **path** – Tự động load command
+- **Render** – Triển khai bot online
+- **Cronjob + Express** – Giữ bot hoạt động 24/7 (qua `keep_alive.js`)
 
 ---
+
+## 📁 Cấu trúc thư mục
+
