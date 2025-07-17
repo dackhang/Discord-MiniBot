@@ -1,4 +1,4 @@
-// commands/rps.js
+//commands/rps.js
 const {
   SlashCommandBuilder,
   EmbedBuilder,
@@ -42,7 +42,8 @@ module.exports = {
     const game = {
       author: interaction.user,
       opponent,
-      choices: {}
+      choices: {},
+      timeout: null
     };
     activeGames.set(interaction.channelId, game);
 
@@ -69,11 +70,13 @@ module.exports = {
 
     await interaction.reply({ embeds: [embed], components: [buttons] });
 
-    setTimeout(() => {
+    game.timeout = setTimeout(() => {
       if (activeGames.has(interaction.channelId) && Object.keys(game.choices).length < 2) {
         interaction.followUp('⏰ Thời gian chọn đã hết, trò chơi hủy.');
         activeGames.delete(interaction.channelId);
       }
     }, 60_000);
-  }
+  },
+
+  activeGames
 };

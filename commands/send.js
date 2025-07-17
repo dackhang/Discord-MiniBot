@@ -1,3 +1,4 @@
+//commands/send.js
 const { SlashCommandBuilder, PermissionFlagsBits } = require('discord.js');
 
 module.exports = {

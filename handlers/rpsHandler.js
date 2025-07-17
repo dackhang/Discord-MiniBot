@@ -1,6 +1,12 @@
-// handlers/rpsHandler.js
+//handlers/rpsHandler.js
 const { EmbedBuilder } = require('discord.js');
 const activeGames = require('../commands/rps').activeGames;
+
+const emojis = {
+  rock: '✊',
+  paper: '🖐',
+  scissors: '✌️'
+};
 
 function rpsWinner(a, b) {
   if (a === b) return 0;
@@ -10,6 +16,13 @@ function rpsWinner(a, b) {
     (a === 'scissors' && b === 'paper')
   ) return 1;
   return 2;
+}
+
+function getRandomColor() {
+  const r = Math.floor(Math.random() * 256);
+  const g = Math.floor(Math.random() * 256);
+  const b = Math.floor(Math.random() * 256);
+  return (r << 16) + (g << 8) + b;
 }
 
 module.exports = async interaction => {
@@ -39,6 +52,8 @@ module.exports = async interaction => {
     game.choices[game.author.id] &&
     game.choices[game.opponent.id]
   ) {
+    clearTimeout(game.timeout); // Hủy timeout nếu cả hai đã chọn
+
     const aChoice = game.choices[game.author.id];
     const oChoice = game.choices[game.opponent.id];
     const result = rpsWinner(aChoice, oChoice);
@@ -51,13 +66,25 @@ module.exports = async interaction => {
     const embed = new EmbedBuilder()
       .setTitle('Kết quả Oẳn Tù Tì 🎲')
       .addFields(
-        { name: game.author.username, value: aChoice, inline: true },
-        { name: game.opponent.username, value: oChoice, inline: true },
+        { name: game.author.username, value: emojis[aChoice], inline: true },
+        { name: game.opponent.username, value: emojis[oChoice], inline: true },
         { name: 'Kết quả', value: resText, inline: false }
       )
-      .setColor('Green');
+;
 
-    await interaction.followUp({ embeds: [embed] });
+    // Tạo hiệu ứng đổi màu trong 8 giây
+    const message = await interaction.followUp({ embeds: [embed.setColor(getRandomColor())] });
+
+    let count = 0;
+    const interval = setInterval(() => {
+      if (count >= 10) {
+        clearInterval(interval);
+      } else {
+        message.edit({ embeds: [embed.setColor(getRandomColor())] });
+        count++;
+      }
+    }, 800);
+
     activeGames.delete(interaction.channelId);
   }
 };

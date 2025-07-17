@@ -1,4 +1,4 @@
-// games/blackjackGame.js
+//games/blackjackGame.js
 const SUIT_ICONS = {
   'Hearts': '♥️',
   'Diamonds': '♦️',
@@ -11,8 +11,9 @@ class Card {
     this.suit = suit;
     this.value = value;
   }
+
   toString() {
-    return `${this.value}${SUIT_ICONS[this.suit]}`;
+    return `\`${this.value}${SUIT_ICONS[this.suit]}\``; // 👈 Làm đẹp bằng emoji + format
   }
 }
 
@@ -57,11 +58,17 @@ class BlackjackGame {
     this.playerName = playerName;
     this.playerHand = [];
     this.dealerHand = [];
+    this.ended = false;
+    this.autoWin = false;
+    this.timeout = null; // 👈 Thêm timeout tracking
   }
 
   start() {
     this.playerHand = [this.deck.draw(), this.deck.draw()];
     this.dealerHand = [this.deck.draw(), this.deck.draw()];
+    if (calculateHand(this.playerHand) === 21) {
+      this.autoWin = true;
+    }
   }
 
   hit() {
@@ -72,16 +79,18 @@ class BlackjackGame {
     while (calculateHand(this.dealerHand) < 17) {
       this.dealerHand.push(this.deck.draw());
     }
+    this.ended = true;
   }
 
   getResult() {
     const pv = calculateHand(this.playerHand);
     const dv = calculateHand(this.dealerHand);
-    if (pv > 21) return "Bạn đã quắc! Dealer thắng!";
-    if (dv > 21) return "Dealer đã quắc! Bạn thắng!";
-    if (pv > dv) return "Bạn thắng!";
-    if (dv > pv) return "Dealer thắng!";
-    return "Hòa!";
+
+    if (pv > 21) return "😵 Bạn đã quắc! Dealer thắng!";
+    if (dv > 21) return "💥 Dealer quắc rồi! Bạn thắng! 🎉";
+    if (pv > dv) return "🔥 Bạn thắng áp đảo!";
+    if (dv > pv) return "🥶 Dealer cao hơn! Bạn thua rồi.";
+    return "🤝 Hòa!";
   }
 
   getHands() {
@@ -92,4 +101,8 @@ class BlackjackGame {
   }
 }
 
-module.exports = { BlackjackGame, calculateHand };
+module.exports = { 
+  BlackjackGame, 
+  calculateHand,
+  Deck
+};

@@ -5,8 +5,14 @@ require('dotenv').config();
 
 // Tạo bot client
 const client = new Client({
-  intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages]
+  intents: [
+    GatewayIntentBits.Guilds,
+    GatewayIntentBits.GuildMessages,
+    GatewayIntentBits.MessageContent,
+    GatewayIntentBits.GuildMembers
+]
 });
+
 
 // Load commands từ thư mục /commands
 client.commands = new Collection();
@@ -25,8 +31,8 @@ for (const file of commandFiles) {
 
 // Đăng nhập
 client.once('ready', async () => {
-  // Đăng ký Slash Commands
-  const rest = new REST({ version: '10' }).setToken(process.env.TOKEN);
+// Đăng ký Slash Commands
+  const rest = new REST({ version: '10' }).setToken(process.env.DISCORD_TOKEN);
   const commands = client.commands.map(cmd => cmd.data.toJSON());
 
   try {
@@ -40,7 +46,7 @@ client.once('ready', async () => {
     console.error('❌ Lỗi khi đăng ký Slash Commands:', error);
   }
 
-  // Trạng thái bot
+// Trạng thái bot
   client.user.setPresence({
     activities: [{
       name: 'CÙNG DHTI15A1CL CHẠY DEADLINE [/]',
@@ -84,10 +90,13 @@ client.on('interactionCreate', async interaction => {
   }
 });
 
-// Khởi động bot
-client.login(process.env.TOKEN);
+// Check lỗi Token có được nhập không
+console.log('Logging in with token:', process.env.DISCORD_TOKEN ? '[OK]' : '[EMPTY]');
+client.login(process.env.DISCORD_TOKEN).catch(err => {
+  console.error('❌ Lỗi đăng nhập:', err);
+});
 
-// Web server để giữ bot sống trên Render
+// Web server để giữ bot sống trên Render (keep_alive.js)
 const express = require('express');
 const app = express();
 
@@ -98,4 +107,9 @@ app.get('/', (req, res) => {
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Web server running on port ${PORT}`);
+});
+
+client.on('error', console.error);
+process.on('unhandledRejection', (err) => {
+  console.error('🚨 Unhandled rejection:', err);
 });

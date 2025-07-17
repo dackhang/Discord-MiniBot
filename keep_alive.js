@@ -12,3 +12,5 @@ function keepAlive() {
 }
 
 module.exports = keepAlive;
+
+//Nếu set up index.js để chạy keepAlive, thêm dòng này vào cuối file index.js ( có thể xóa nếu không cần thiết)

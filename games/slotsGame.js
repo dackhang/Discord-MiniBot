@@ -1,4 +1,4 @@
-// games/slotsGame.js
+//games/slotsGame.js
 class SlotsGame {
   constructor() {
     this.symbols = ['🍒', '🍋', '🍊', '🍇', '🍉', '⭐'];
