@@ -90,6 +90,24 @@ client.on('interactionCreate', async interaction => {
   }
 });
 
+// Xử lý sự kiện thành viên mới tham gia
+// Dùng liên kết tới MongoDB để lưu kênh chào mừng
+const WelcomeChannel = require('./db');
+
+client.on('guildMemberAdd', async member => {
+  try {
+    const config = await WelcomeChannel.findOne({ guildId: member.guild.id });
+    if (!config) return;
+
+    const channel = member.guild.channels.cache.get(config.channelId);
+    if (!channel) return;
+
+    channel.send(`👋 Chào mừng ${member.user} đến với **${member.guild.name}**!`);
+  } catch (err) {
+    console.error('Lỗi khi gửi tin nhắn chào:', err);
+  }
+});
+
 // Check lỗi Token có được nhập không
 console.log('Logging in with token:', process.env.DISCORD_TOKEN ? '[OK]' : '[EMPTY]');
 client.login(process.env.DISCORD_TOKEN).catch(err => {
